@@ -1,0 +1,76 @@
+<html>
+    <head>
+        <title>Home</title>
+        <link rel="stylesheet" type="text/css" href="styles/style.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAPqZ_ke7iRiR8asBXUHVVLRk6Rpa6EcLs&libraries=places"></script>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>  
+    </head>
+    <body>
+<!--nav bar-->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Navbar</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
+      <a class="nav-item nav-link" href="#">Features</a>
+      <a class="nav-item nav-link" href="#">Pricing</a>
+    </div>
+  </div>
+</nav>
+ <!--search bar-->       
+<div class="search">
+  <div class="form-group">
+    <label>What's the property address?</label>
+    <input type="text" class="form-control" id="search_input">
+  </div>
+  <button class="btn btn-primary" onclick="displaylist()">Submit</button>
+</div>
+<div class="list">
+    <h3>Nearby Views</h3>
+    <ul>
+    <li class="map-wrapper">
+     <div id="floating-panel">
+      <input id="togglestreet" type="button" value="Street View" onclick="toggleStreetView();"></div>
+     <div id="map" style="height: 100%;"></div>   
+    </li>
+    </ul>
+    <h3>Enviromental</h3>
+    <ul>
+    <li>
+        <a id="superfund_anchor" href="https://epa.maps.arcgis.com/apps/webappviewer/index.html?id=33cebcdfdd1b4c3a8b51d416956c41f1" target="_blank">Superfund(Risk for air/underground water/soil)</a></li>
+
+     <li>
+         <a id="cleanup_anchor" href="https://geotracker.waterboards.ca.gov/map/?CMD=runreport" target="_blank">Cleanup sites (Risk for water quality)</a>
+    </li>
+     <li>
+         <a href="https://pvnpms.phmsa.dot.gov/PublicViewer/#" target="_blank">Gas pipeline & breakout tank (Risk of gas transmission and hazardous liquid)</a>
+    </li>
+    <li>
+        <a id="earthquake_anchor" href="https://maps.conservation.ca.gov/cgs/EQZApp/app" target="_blank">Earthquake/Liquefaction</a>
+    </li>
+    </ul>
+        <h3>Safety</h3>
+    <ul>
+    <li>
+        <a id="crime-anchor" href="https://www.neighborhoodscout.com/ca/" target="_blank">Crime Map</a></li>
+   
+     <li>
+         <a id="megans-anchor" href="" target="_blank">Megan's Law Map</a>
+    </li>
+    </ul>
+            <h3>Others</h3>
+    <ul>
+    <li>
+        <a id="whitepages-anchor" href="https://www.whitepages.com/address" target="_blank">Whitepages</a></li>
+        <li><a id="google-anchor" href="https://www.google.com/" target="_blank">Google Search</a></li>
+    </ul>
+</div>
+<script src="js/index.js"></script>
+    </body>
+</html>
