@@ -2,8 +2,11 @@
     <head>
         <title>Home</title>
         <link rel="stylesheet" type="text/css" href="styles/style.css">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<!-- bootstrap-->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> 
+ <!-- google -->       
         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAPqZ_ke7iRiR8asBXUHVVLRk6Rpa6EcLs&libraries=places"></script>
+<!-- jquery-->
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"
   integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
   crossorigin="anonymous"></script>  
@@ -12,15 +15,21 @@
 <!--nav bar-->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand" href="#">Navbar</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-    <div class="navbar-nav">
-      <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
-      <a class="nav-item nav-link" href="#">Features</a>
-      <a class="nav-item nav-link" href="#">Pricing</a>
-    </div>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Features</a>
+      </li>
+          <li class="nav-item">
+        <a class="nav-link" href="#">Price</a>
+      </li>
+    </ul>
   </div>
 </nav>
  <!--search bar-->       
@@ -43,34 +52,37 @@
     <h3>Enviromental</h3>
     <ul>
     <li>
-        <a id="superfund_anchor" href="https://epa.maps.arcgis.com/apps/webappviewer/index.html?id=33cebcdfdd1b4c3a8b51d416956c41f1" target="_blank">Superfund(Risk for air/underground water/soil)</a></li>
+        <a id="superfundanchor" href="https://epa.maps.arcgis.com/apps/webappviewer/index.html?id=33cebcdfdd1b4c3a8b51d416956c41f1" target="_blank">Superfund(Risk for air/underground water/soil)</a></li>
 
      <li>
-         <a id="cleanup_anchor" href="https://geotracker.waterboards.ca.gov/map/?CMD=runreport" target="_blank">Cleanup sites (Risk for water quality)</a>
+         <a id="cleanupanchor" href="https://geotracker.waterboards.ca.gov/map/?CMD=runreport" target="_blank">Cleanup sites (Risk for water quality)</a>
     </li>
      <li>
          <a href="https://pvnpms.phmsa.dot.gov/PublicViewer/#" target="_blank">Gas pipeline & breakout tank (Risk of gas transmission and hazardous liquid)</a>
     </li>
     <li>
-        <a id="earthquake_anchor" href="https://maps.conservation.ca.gov/cgs/EQZApp/app" target="_blank">Earthquake/Liquefaction</a>
+        <a id="earthquakeanchor" href="https://maps.conservation.ca.gov/cgs/EQZApp/app" target="_blank">Earthquake/Liquefaction</a>
     </li>
     </ul>
         <h3>Safety</h3>
     <ul>
     <li>
-        <a id="crime-anchor" href="https://www.neighborhoodscout.com/ca/" target="_blank">Crime Map</a></li>
+        <a id="crimeanchor" href="https://www.neighborhoodscout.com/" target="_blank">Crime Map</a></li>
    
      <li>
-         <a id="megans-anchor" href="" target="_blank">Megan's Law Map</a>
+         <a id="megansanchor" href="" target="_blank">Megan's Law Map</a>
     </li>
     </ul>
             <h3>Others</h3>
     <ul>
     <li>
-        <a id="whitepages-anchor" href="https://www.whitepages.com/address" target="_blank">Whitepages</a></li>
-        <li><a id="google-anchor" href="https://www.google.com/" target="_blank">Google Search</a></li>
+        <a id="whitepagesanchor" href="https://www.whitepages.com/address" target="_blank">Whitepages</a></li>
+        <li><a id="googleanchor" href="https://www.google.com/" target="_blank">Google Search</a></li>
     </ul>
 </div>
+ <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <script src="js/index.js"></script>
     </body>
 </html>

@@ -1,4 +1,7 @@
-var autocomplete, geometry, lat, lng, address_components, formatted_address;
+let autocomplete, geometry, lat, lng, address_components, formatted_address;
+let address_obj ={};
+const anchor_array = ['superfundanchor','cleanupanchor','earthquakeanchor','crimeanchor','megansanchor','whitepagesanchor','googleanchor']
+
 
 autocomplete = new google.maps.places.Autocomplete((document.getElementById('search_input')), {
 	types: ['geocode']
@@ -6,12 +9,27 @@ autocomplete = new google.maps.places.Autocomplete((document.getElementById('sea
 
 google.maps.event.addListener(autocomplete, 'place_changed', function () {
 	var place = autocomplete.getPlace();
+    geometry = place.geometry;
 	lat = place.geometry.location.lat();
 	lng = place.geometry.location.lng();
     address_components = place.address_components;
     formatted_address = place.formatted_address;
-	geometry = place.geometry;
+    addresscomponents_obj();	
 })
+
+//preparation functions
+let addresscomponents_obj = function() {
+       address_obj ={};
+      for (item of address_components) {
+       if (!address_obj[item["types"][0]]) {
+           address_obj[item["types"][0]] = item["short_name"]
+       } 
+      }     
+}
+
+function updateLink(id,newlink) {
+    document.getElementById(id).href = newlink; 
+}
 
 function displaylist() {
 	var input = document.getElementById('search_input').value;
@@ -20,13 +38,8 @@ function displaylist() {
 		return;
 	} else {
 		initMap();
-        updateLink('superfund_anchor',superfund());
-        updateLink('cleanup_anchor',cleanup());
-        updateLink('earthquake_anchor',earthquake());
-        updateLink('crime-anchor',crime());
-        updateLink('megans-anchor',megans());
-        updateLink('whitepages-anchor',whitepages());
-        updateLink('google-anchor',googlesearch());
+        addresscomponents_obj();
+        anchor_array.forEach(item=>updateLink(item,eval(`${item}()`)));     
 	}
 }
 
@@ -70,74 +83,36 @@ function toggleStreetView() {
 	}
 }
 
-//Superfund map
-function superfund() {
-    let link = 'https://epa.maps.arcgis.com/apps/webappviewer/index.html?id=33cebcdfdd1b4c3a8b51d416956c41f1&extent=';
-    link = link + (lng-0.01) + ',' + (lat-0.01) + ',' + (lng+0.01) +  ',' + (lat+0.01);
-    return link;  
-}
-//Cleanup map
-function cleanup() {
-    let link = 'https://geotracker.waterboards.ca.gov/map/?CMD=runreport&myaddress=';
-    link = link + document.getElementById('search_input').value;
-    return link;
-
-}
-//Earthquake map
-function earthquake() {
-    let link = 'https://maps.conservation.ca.gov/cgs/EQZApp/app/?extent=';
-    link = link + (lng-0.1) + ',' + (lat-0.1) + ',' + (lng+0.1) +  ',' + (lat+0.1);
-    return link;
-}
-//Crime map
-function crime() {
-    let link = 'https://www.neighborhoodscout.com/ca/'
-    for (item of address_components) {
-        let city;
-        if (item["types"][0]==="locality") {
-            city=item["long_name"].replace(" ","-"); 
-            link = link + city + '/crime';
-        }   
-    }
-    return link;
-}
-//Megan's Law
-function megans() {
-    let link = 'https://www.meganslaw.ca.gov/Disclaimer.aspx?m=q&a=';
-    link = link + formatted_address + '&r=2';
-    return link; 
+//get different updated anchor links
+let superfundanchor = function() {
+    return `https://epa.maps.arcgis.com/apps/webappviewer/index.html?id=33cebcdfdd1b4c3a8b51d416956c41f1&extent=${lng-0.01},${lat-0.01},${lng+0.01},${lat+0.01}`; 
 }
 
-//Whitepages
-function whitepages() {
-    let link = 'https://www.whitepages.com/address/';
-    let addedlink = '';
-    let addedlink2;
-    let address_array = formatted_address.split(', ');
-    for (let i=address_array.length-2; i>=0; i--) {
-        if (i===address_array.length-2) {
-            addedlink = '-' + address_array[i].substring(0,2) + addedlink;
-        }
-        else if (i===address_array.length-3) {
-            addedlink = '/' + address_array[i] + addedlink;
-        } else {
-            addedlink = address_array[i] + addedlink;
-        }    
-    }
-    addedlink2 = link+ addedlink.replace(new RegExp(' ', "g"), '-')
-    return addedlink2;
-
+let cleanupanchor = function() {
+return `https://geotracker.waterboards.ca.gov/map/?CMD=runreport&myaddress=${formatted_address}`;
 }
 
-//Google Search
-function googlesearch() {
-    let link = 'https://www.google.com/search?q=' + formatted_address;
-    return link;
+let earthquakeanchor = function() {
+    return `https://maps.conservation.ca.gov/cgs/EQZApp/app/?extent=${lng-0.03},${lat-0.03},${lng+0.03},${lat+0.03}`;
 }
 
-function updateLink(id,newlink) {
-    document.getElementById(id).href = newlink;
+let crimeanchor = function() {
+    return `https://www.neighborhoodscout.com/${address_obj['administrative_area_level_1']?address_obj['administrative_area_level_1'].toLowerCase():''}/${ address_obj["locality"].replace(' ','-')}/crime`;
 }
+
+let megansanchor = function() {
+    return `https://www.meganslaw.ca.gov/Disclaimer.aspx?m=q&a=${formatted_address}&r=2`;
+}
+
+function whitepagesanchor() {
+    return `https://www.whitepages.com/address/${address_obj['street_number']?address_obj['street_number']+'-':''}${address_obj['route']?address_obj['route'].replace(' ','-')+'/':''}${address_obj['locality']?address_obj['locality'].replace(' ','-')+'-':''}${address_obj['administrative_area_level_1']?address_obj['administrative_area_level_1']:''}`
+}
+
+let googleanchor = function() {
+    return `https://www.google.com/search?q=${formatted_address}`;
+}
+
+
 
 
 
