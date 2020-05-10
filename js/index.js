@@ -109,7 +109,7 @@ function whitepagesanchor() {
 }
 
 let googleanchor = function() {
-    return `https://www.google.com/search?q=${formatted_address}`;
+    return `https://www.google.com/search?q=${formatted_address}+-mls+-"square+foot"+-redfin+-trulia+-zillow+-prices+-"real estate agent"`;
 }
 
 
