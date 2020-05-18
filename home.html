@@ -1,65 +1,120 @@
 <html>
     <head>
         <title>Home</title>
-        <link rel="stylesheet" type="text/css" href="styles/style.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <!-- bootstrap-->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> 
  <!-- google -->       
         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAPqZ_ke7iRiR8asBXUHVVLRk6Rpa6EcLs&libraries=places"></script>
-<!-- jquery-->
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-  crossorigin="anonymous"></script>  
+        <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;500&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Oxygen:wght@400;700&display=swap" rel="stylesheet">
+<!--icon-->
+ <script src="https://kit.fontawesome.com/02a54db174.js" crossorigin="anonymous"></script>
+ <link rel="stylesheet" type="text/css" href="styles/style.css">
     </head>
     <body>
+<div class="wrapper">
  <!--search bar-->       
 <div class="search">
   <div class="form-group">
     <label><h5>What's the property address?</h5></label>
+    <div id="sticky-search">
+    <div id="input-box">
     <input type="text" class="form-control" id="search_input">
+    </div>
+    <div id="button-box">
+    <button id="search-button" class="btn btn-primary" onclick="displaylist()">Submit</button>
+    </div>
   </div>
-  <button class="btn btn-primary" onclick="displaylist()">Submit</button>
 </div>
+    </div>
 <div class="list">
-    <h5>Nearby Views</h5>
+    <div>
+    <h5 class="list-title">Nearby Views</h5>
+    <div><p>Click on the map to get street views of the neighborhood.</div>
+    
+    <div class="map-wrapper">
+    <div id="map"></div>
+    <div id="pano"></div>    
+    </div>
+    
+    <div class="nearby-tips show-read-more">
     <ul>
-    <li class="map-wrapper">
-     <div id="floating-panel">
-      <input id="togglestreet" type="button" value="Street View" onclick="toggleStreetView();"></div>
-     <div id="map" style="height: 100%;"></div>   
-    </li>
+    <li><span class="number">1&nbsp;&nbsp;&nbsp;</span>Check the maintenance of surrounding buildings and cleanliness of the streets to understand the community.</li>
+    <li><span class="number">2&nbsp;&nbsp;&nbsp;</span>Count the number of cars parked on the street to make sure enough parking spots.</li>
+    <li><span class="number">3&nbsp;&nbsp;&nbsp;</span>Check if there are any nearby spots that may concern you, for example, trains, highways, or stop signs that could be noisy, high voltage power lines etc.</li>
+    <li><span class="number">4&nbsp;&nbsp;&nbsp;</span>Don't forget to check groceries and restaurants nearby, you may find your favourite food there. =)</li>
+    <li><span class="number">5&nbsp;&nbsp;&nbsp;</span>Use the Satellite mode to calculate the acreage of the property on your own and check the backyard of the property - are there any big trees that may result in lots of fallen leaves or impact your home improvement plan?</li>
     </ul>
-    <h5>Enviromental</h5>
+    </div> 
+    
+    </div>
+    
+    <div>
+    <h5 class="list-title">Enviromental</h5>
     <ul>
     <li>
-        <a id="superfundanchor" href="https://epa.maps.arcgis.com/apps/webappviewer/index.html?id=33cebcdfdd1b4c3a8b51d416956c41f1" target="_blank">Superfund(Risk for air/underground water/soil)</a></li>
+        <div class="hover-box"><span class="number">1&nbsp;&nbsp;&nbsp;</span><a id="superfundanchor" href="https://epa.maps.arcgis.com/apps/webappviewer/index.html?id=33cebcdfdd1b4c3a8b51d416956c41f1" target="_blank" class="list-title animating-link">Superfunds nearby.</a>
+        </div>
+        <div>The Superfund program is designed to clean up sites contaminated with hazardous waste. Toxic substances at these sites could poison soil, water or air, causing human health risks like cancer, birth defects, nerve damage and liver damage.</div>
+    </li>
 
      <li>
-         <a id="cleanupanchor" href="https://geotracker.waterboards.ca.gov/map/?CMD=runreport" target="_blank">Cleanup sites (Risk for water quality)</a>
+         <div class="hover-box"><span class="number">2&nbsp;&nbsp;&nbsp;</span><a id="cleanupanchor" href="https://geotracker.waterboards.ca.gov/map/?CMD=runreport" target="_blank" class="list-title animating-link">Sites require cleanup.</a>
+        </div>
+        <div>Sites require cleanup may impact or have the potential to impact water quality, such as Leaking Underground Storage Tank (LUST) Sites. This map also includes records for various unregulated projects as well as permitted facilities.
+        </div>
     </li>
      <li>
-         <a href="https://pvnpms.phmsa.dot.gov/PublicViewer/#" target="_blank">Gas pipeline & breakout tank (Risk of gas transmission and hazardous liquid)</a>
+         <div class="hover-box"><span class="number">3&nbsp;&nbsp;&nbsp;</span><a href="https://pvnpms.phmsa.dot.gov/PublicViewer/#" target="_blank" class="list-title animating-link">Pipelines nearby.</a> (You need to manually choose state and county name to access the map.)</div>
+         <div>Pipelines in this map include natural gas transmission pipelines and breakout tanks, whose release may impact environment nearby or cause accidents like fire or explosions. If a gas transmission pipeline traverses your property, there might be rules about what you can and can't do in the pipeline area. 
+        </div>
+         
     </li>
     <li>
-        <a id="earthquakeanchor" href="https://maps.conservation.ca.gov/cgs/EQZApp/app" target="_blank">Earthquake/Liquefaction</a>
+        <div class="hover-box"><span class="number">4&nbsp;&nbsp;&nbsp;</span><a id="earthquakeanchor" href="https://maps.conservation.ca.gov/cgs/EQZApp/app" target="_blank" class="list-title animating-link">Earthquake zones.</a>
+        </div>
+        <div>Earthquake could cause property damage, and people getting hurt or killed. Landslides and liquefaction are secondary effects caused by ground shaking, which are included in this map as well.
+        </div>
     </li>
     </ul>
-        <h5>Safety</h5>
+    </div>
+        <h5 class="list-title">Safety</h5>
     <ul>
-    <li>
-        <a id="crimeanchor" href="https://www.neighborhoodscout.com/" target="_blank">Crime Map</a></li>
+    <li><div class="hover-box"><span class="number">1&nbsp;&nbsp;&nbsp;</span><a id="crimeanchor" href="https://www.neighborhoodscout.com/" target="_blank" class="list-title animating-link">Crime rates.</a></div>
+        <div class="show-read-more">Take a look at if this area is safe enough. Data includes property and violence crimes. 
+        </div>   
+    </li>
    
      <li>
-         <a id="megansanchor" href="" target="_blank">Megan's Law Map</a>
+         <div class="hover-box"><span class="number">2&nbsp;&nbsp;&nbsp;</span><a id="megansanchor" href="" target="_blank" class="list-title animating-link">Sex offenders.</a></div>
+         <div class="show-read-more">Use Megan's Law website to check if there are sex offenders living close to the propery so you can better protect you and your family.
+        </div> 
     </li>
     </ul>
-            <h5>Others</h5>
+            <h5 class="list-title">Others</h5>
     <ul>
-    <li>
-        <a id="whitepagesanchor" href="https://www.whitepages.com/address" target="_blank">Whitepages</a></li>
-        <li><a id="googleanchor" href="https://www.google.com/" target="_blank">Google Search</a></li>
+    <li><div class="hover-box"><span class="number">1&nbsp;&nbsp;&nbsp;</span><a id="whitepagesanchor" href="https://www.whitepages.com/address" target="_blank" class="list-title animating-link">Residents.</a></div>
+        <div class="show-read-more">Get to know former resident in this property or residents living nearby.
+        </div>
+        </li>
+        
+        <li><div class="hover-box"><span class="number">2&nbsp;&nbsp;&nbsp;</span><a id="googleanchor" href="https://www.google.com/" target="_blank" class="list-title animating-link">Google Search.</a></div>
+        <div class="show-read-more">Check out any other information you've missed about this property.
+        </div>
+        </li>
     </ul>
 </div>
+<footer>
+<div class="">
+<h6>CONTACT</h6>
+<p>gracezhu303@gmail.com</p>
+</div>   
+</footer>
+ </div>   
  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>

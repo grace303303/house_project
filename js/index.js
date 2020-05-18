@@ -44,6 +44,7 @@ function displaylist() {
 }
 
 //display map & stree view
+var map;
 var panorama;
 
 function initMap() {
@@ -51,37 +52,53 @@ function initMap() {
 		lat: lat,
 		lng: lng
 	};
+    var sv = new google.maps.StreetViewService();
+    panorama = new google.maps.StreetViewPanorama(document.getElementById('pano'));
 
-	var map = new google.maps.Map(document.getElementById('map'), {
-		center: theplace,
-		zoom: 15,
-		streetViewControl: false
-	});
-    var marker = new google.maps.Marker({
-          map: map,
-          anchorPoint: new google.maps.Point(0, -29)
-});
-marker.setPosition(geometry.location);
-marker.setVisible(true);
 
-	panorama = map.getStreetView();
-	panorama.setPosition(theplace);
-	panorama.setPov( /** @type {google.maps.StreetViewPov} */ ({
-		heading: 265,
-		pitch: 0
-	}));
-}
+	// Set up the map.
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: theplace,
+          zoom: 15,
+          streetViewControl: false
+        });
+    // Set the initial Street View camera to the center of the map
+        sv.getPanorama({location: theplace, radius: 50}, processSVData);
+    
+        map.addListener('click', function(event) {
+          sv.getPanorama({location: event.latLng, radius: 50}, processSVData);
+        });
+      }
+    
+function processSVData(data, status) {
+        if (status === 'OK') {
+          var marker = new google.maps.Marker({
+            position: data.location.latLng,
+            map: map,
+            title: data.location.description
+          });
 
-function toggleStreetView() {
-	var toggle = panorama.getVisible();
-	if (toggle == false) {
-		panorama.setVisible(true);
-		document.getElementById('togglestreet').value = "View Map";
-	} else {
-		panorama.setVisible(false);
-		document.getElementById('togglestreet').value = "Street View";
-	}
-}
+          panorama.setPano(data.location.pano);
+          panorama.setPov({
+            heading: 270,
+            pitch: 0
+          });
+          panorama.setVisible(true);
+
+          marker.addListener('click', function() {
+            var markerPanoID = data.location.pano;
+            // Set the Pano to use the passed panoID.
+            panorama.setPano(markerPanoID);
+            panorama.setPov({
+              heading: 270,
+              pitch: 0
+            });
+            panorama.setVisible(true);
+          });
+        } else {
+          console.error('Street View data not found for this location.');
+        }
+      }
 
 //get different updated anchor links
 let superfundanchor = function() {
@@ -112,9 +129,51 @@ let googleanchor = function() {
     return `https://www.google.com/search?q=${formatted_address}+-mls+-"square+foot"+-redfin+-trulia+-zillow+-prices+-"real estate agent"`;
 }
 
+//Add scrollbar to the search box
+window.onscroll = function() {stickySearch()};
 
+let searchbox = document.getElementById("sticky-search");
+let searchbar = document.getElementById("input-box");
+let searchbutton = document.getElementById("button-box");
+let sticky = searchbox.offsetTop;
 
+function stickySearch() {
+  if (window.pageYOffset >= sticky) {
+    searchbox.classList.add("sticky");
+    searchbar.classList.add("leftfloat-search");
+    searchbutton.classList.add("leftfloat-button");
+  document.getElementById("search_input").style.borderRadius="0rem";
+  document.getElementById("search-button").style.borderRadius="0rem";
+  } else {
+    searchbox.classList.remove("sticky");
+    searchbar.classList.remove("leftfloat-search");
+    searchbutton.classList.remove("leftfloat-button");
+   document.getElementById("search_input").style.borderRadius=".25rem";
+  document.getElementById("search-button").style.borderRadius=".25rem";
+  }
+}
 
+//show read more
+if (screen.width<=550) {
+$(document).ready(function(){
+    var maxLength = 150;
+    $(".show-read-more").each(function(){
+        var myStr = $(this).text();
+        if($.trim(myStr).length > maxLength){
+            var newStr = myStr.substring(0, maxLength);
+            var removedStr = myStr.substring(maxLength, $.trim(myStr).length);
+            $(this).empty().html(newStr);
+            $(this).append('<a href="javascript:void(0);" class="read-more"> read more...</a>');
+            $(this).append('<span class="more-text">' + removedStr + '</span>');
+        }
+    });
+    $(".read-more").click(function(){
+        console.log($(this));
+        $(this).siblings(".more-text").contents().unwrap();
+        $(this).remove();
+    });
+});
+}
 
 
 
