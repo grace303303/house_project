@@ -153,30 +153,22 @@ function stickySearch() {
   }
 }
 
-//show read more
-if (screen.width<=550) {
-$(document).ready(function(){
-    var maxLength = 150;
-    $(".show-read-more").each(function(){
-        var myStr = $(this).text();
-        if($.trim(myStr).length > maxLength){
-            var newStr = myStr.substring(0, maxLength);
-            var removedStr = myStr.substring(maxLength, $.trim(myStr).length);
-            $(this).empty().html(newStr);
-            $(this).append('<a href="javascript:void(0);" class="read-more"> read more...</a>');
-            $(this).append('<span class="more-text">' + removedStr + '</span>');
-        }
-    });
-    $(".read-more").click(function(){
-        console.log($(this));
-        $(this).siblings(".more-text").contents().unwrap();
-        $(this).remove();
-    });
-});
+//read more
+function readMore() {
+  var dots = document.getElementById("dots");
+  var moreText = document.getElementById("more");
+  var btnText = document.getElementById("readmorebtn");
+
+  if (dots.style.display === "none") {
+    dots.style.display = "inline";
+    btnText.innerHTML = "Read more"; 
+    moreText.style.display = "none";
+  } else {
+    dots.style.display = "none";
+    btnText.innerHTML = "Read less"; 
+    moreText.style.display = "inline";
+  }
 }
-
-
-
 
 
 

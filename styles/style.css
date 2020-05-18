@@ -53,7 +53,7 @@ input[type=text]:focus{
   position: fixed;
   top: 0;
   width: 70%;
-  z-index: 1;
+  z-index: 2;
   display: table;
 }
 
@@ -172,14 +172,20 @@ text-decoration: none;
         width: 100%;
     }
     .nearby-tips {
-        margin-top: 190px;
+      padding-top: 140px;
     }
     footer {
         margin-top:0px;
     }
-    .show-read-more .more-text{
-        display: none;
-    }
 }
+
+/*read more button*/
+#more {display: none;}
+
+#readmorebtn {
+    border-bottom: 1px solid currentColor; 
+    cursor: pointer;
+}
+
 
 
