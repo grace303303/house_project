@@ -39,7 +39,8 @@ function displaylist() {
 	} else {
 		initMap();
         addresscomponents_obj();
-        anchor_array.forEach(item=>updateLink(item,eval(`${item}()`)));     
+       anchor_array.forEach(item=>updateLink(item,eval(`${item}()`))); 
+        $("html, body").animate({ scrollTop: 0 }, 350);
 	}
 }
 
