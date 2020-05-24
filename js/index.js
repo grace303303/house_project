@@ -53,7 +53,7 @@ function assignment(place) {
     addresscomponents_obj();    
 }
 function showlist() {
-    document.getElementById('wrapper').style.paddingTop="20px";
+    document.getElementById('form-group').style.marginTop="10px";
     let list = document.getElementById('list');
     $(list).show( "slow" );
 	initMap();
@@ -157,7 +157,8 @@ let searchbar = document.getElementById("input-box");
 let searchbutton = document.getElementById("button-box");
 
 function stickySearch() {
-  if (window.pageYOffset >= 110) {
+//    console.log(searchbox.offsetTop);
+  if (window.pageYOffset >= 176) {
     searchbox.classList.add("sticky");
     searchbar.classList.add("leftfloat-search");
     searchbutton.classList.add("leftfloat-button");
