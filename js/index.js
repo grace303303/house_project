@@ -3,20 +3,6 @@ let address_obj ={};
 const anchor_array = ['superfundanchor','cleanupanchor','earthquakeanchor','crimeanchor','megansanchor','whitepagesanchor','googleanchor']
 
 
-autocomplete = new google.maps.places.Autocomplete((document.getElementById('search_input')), {
-	types: ['geocode']
-});
-
-google.maps.event.addListener(autocomplete, 'place_changed', function () {
-	var place = autocomplete.getPlace();
-    geometry = place.geometry;
-	lat = place.geometry.location.lat();
-	lng = place.geometry.location.lng();
-    address_components = place.address_components;
-    formatted_address = place.formatted_address;
-    addresscomponents_obj();	
-})
-
 //preparation functions
 let addresscomponents_obj = function() {
        address_obj ={};
@@ -31,18 +17,52 @@ function updateLink(id,newlink) {
     document.getElementById(id).href = newlink; 
 }
 
-function displaylist() {
-	var input = document.getElementById('search_input').value;
-	if (!geometry) {
-		window.alert("No details available for input: '" + input + "'");
-		return;
-	} else {
-		initMap();
-        addresscomponents_obj();
-       anchor_array.forEach(item=>updateLink(item,eval(`${item}()`))); 
-        $("html, body").animate({ scrollTop: 0 }, 350);
-	}
+//If the user uses autocomplete
+    autocomplete = new google.maps.places.Autocomplete((document.getElementById('search_input')), {
+	types: ['geocode']
+});
+
+google.maps.event.addListener(autocomplete, 'place_changed', function () {
+    assignment(autocomplete.getPlace());
+    showlist();
+})
+
+//if the user hard inputs address
+let geocoder;
+function submit() {
+    geocoder = new google.maps.Geocoder();
+	let input = document.getElementById('search_input').value;
+    geocoder.geocode( { 'address': input}, function(results, status) {
+      if (status == 'OK') {
+    assignment(results[0]);
+    showlist();
+      } else {
+        document.getElementById('modalBody').innerHTML=`Opps! No details available for input:${input}`; $('#exampleModal').modal('show');
+        return;
+      }
+    });
+    
 }
+//functions used both for autocomplete and hard input
+function assignment(place) {
+    geometry = place.geometry;
+	lat = place.geometry.location.lat();
+	lng = place.geometry.location.lng();
+    address_components = place.address_components;
+    formatted_address = place.formatted_address;
+    addresscomponents_obj();    
+}
+function showlist() {
+    document.getElementById('wrapper').style.paddingTop="20px";
+    let list = document.getElementById('list');
+    $(list).show( "slow" );
+	initMap();
+    addresscomponents_obj();
+    anchor_array.forEach(item=>updateLink(item,eval(`${item}()`))); 
+    $("html, body").animate({ scrollTop: 0 }, 350); 
+    window.onscroll = function() {stickySearch()};   
+}
+
 
 //display map & stree view
 var map;
@@ -97,7 +117,8 @@ function processSVData(data, status) {
             panorama.setVisible(true);
           });
         } else {
-          console.error('Street View data not found for this location.');
+         document.getElementById('modalBody').innerHTML=`Opps! Street View data not found for this location, but you can still check other information.`;
+        $('#exampleModal').modal('show');
         }
       }
 
@@ -131,15 +152,12 @@ let googleanchor = function() {
 }
 
 //Add scrollbar to the search box
-window.onscroll = function() {stickySearch()};
-
 let searchbox = document.getElementById("sticky-search");
 let searchbar = document.getElementById("input-box");
 let searchbutton = document.getElementById("button-box");
-let sticky = searchbox.offsetTop;
 
 function stickySearch() {
-  if (window.pageYOffset >= sticky) {
+  if (window.pageYOffset >= 110) {
     searchbox.classList.add("sticky");
     searchbar.classList.add("leftfloat-search");
     searchbutton.classList.add("leftfloat-button");
