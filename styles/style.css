@@ -22,7 +22,7 @@ input[type=text]:focus{
 
 .search{
     margin: auto;
-    padding: 50px 0;
+    padding-top: 50px;
 }
 
 .form-group {
@@ -33,30 +33,25 @@ input[type=text]:focus{
     margin-bottom: 1rem;   
 }
 .form-control{
-    margin-bottom: 20px;
+    margin:10px auto 20px auto;
 }
 
 .btn-primary{
-    background-color: #1b1b1b;
-    border:1px solid #1b1b1b;
-    color: #ffffff;
+    background-color:#ece5dc;
+    border:1px solid #ece5dc;
+    color: #1b1b1b;
+    border-radius: 0px;
+    text-transform: uppercase;
+    transition: .6s;   
 }
 
 .btn-primary:hover{
-    background-color: #3d3d3d;
-    border:1px solid #3d3d3d;
+    background-color: #ffffff;
+    border:1px solid #1b1b1b;
+    color: #1b1b1b;
 }
 
-.btn-primary:active {
-  background-color: #525252 !important;
-  border: 1px solid #525252 !important;
-}
 
-.btn-primary:focus {
-  -moz-box-shadow: 0 0 5px #3d3d3d !important;
-  -webkit-box-shadow: 0 0 5px #3d3d3d !important;
-  box-shadow: 0 0 5px #3d3d3d !important;
-}
 
 .sticky {
   position: fixed;
@@ -84,19 +79,44 @@ input[type=text]:focus{
 
 ul {
     list-style: none;
+    padding: 0px;
 }
 .list {
     padding:30px;
-    background-color: #f7f7f0;
     margin: auto;
     margin-bottom: 30px;
-    width: 70%;
     display: none;
 }
 
+.row{
+    text-align: center;
+}
+
+.card {
+    width: 80%;
+    margin: 10px auto 0;
+    border: none;
+}
+.card h5 {
+    margin-top: 20px;
+    margin-bottom: 0px;
+}
+h5 a{
+   color: #133A31;
+   font-size: 20px;
+   font-family: 'Crimson Text', serif;
+}
+
+.col-12 p, .nearby-tips {
+    color: #53565a;
+    margin-top: 20px;
+    font-size: 15px;
+    text-align: left;
+}
 .map-wrapper {
     width: 100%;
     height: 30%;
+    margin-bottom: 30px;
 }
 
 .map-wrapper > div{
@@ -110,15 +130,67 @@ ul {
 }
 
 .list-title {
-    color: #1b1b1b;
+    color: #103a4d;
+    text-align: center;
+    letter-spacing:1.4px;
+    text-transform: uppercase;
+    margin: 50px auto;
+    
 }
 
-.map-wrapper {
-    margin-bottom: 30px;
+.nearbyviews {
+    text-align: left;
+}
+.nearby{
+    width: 65%;
+    text-align: center;
+    margin: auto;
+}
+/*hover effects*/
+.img-hover-zoom{
+  overflow: hidden;
+}
+.img-hover-zoom img {
+  transition: transform 2s, filter 1.5s ease-in-out;
+  transform-origin: center center;
+  filter: brightness(95%);
+}
+.img-hover-zoom:hover img {
+  filter: brightness(105%);
+  transform: scale(1.3);
 }
 
-.hover-box {
-    margin: 10px 0;
+.list a {
+ display: inline-block;
+  position: relative;
+}
+.list a:hover{
+    text-decoration: none;
+    color: #133A31;
+}
+
+a.hover-underline:after {
+  content: '';
+  position: absolute;
+  left: 0;
+  display: inline-block;
+  height: 1em;
+  width: 100%;
+  border-bottom: 1px solid;
+  margin-top: 10px;
+  opacity: 0;
+	-webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+	transition: opacity 0.35s, transform 0.35s;
+	-webkit-transform: scale(0,1);
+	transform: scale(0,1);
+    color: #133A31;
+}
+
+a.hover-underline:hover:after {
+  opacity: 1;
+	-webkit-transform: scale(1);
+	transform: scale(1);
+    color: #133A31;
 }
 /*footer*/
 .container-wrapper {
@@ -137,42 +209,6 @@ footer {
     text-align: center;
 }
 
-.hover-box {
-    display: inline-block;
-}
-.animating-link {
-position: relative;
-display: inline-block;
-}
-
-.animating-link,
-.animating-link:hover,
-.animating-link:focus,
-.animating-link:active
-{
-color: #1b1b1b;
-text-decoration: none;
-}
-
-.animating-link::after {
-  content: "";
-  position: absolute;
-}
-
-.hover-box .animating-link::after {
-  top: 100%;
-  height: 1px;
-  width: 100%;
-  left: 0;
-  background-color: #1b1b1b;
-  transition: 0.4s ease-out all .1s;
-}
-
-.hover-box:hover .animating-link::after {
-  width: 0;
-  left: 100%;
-  transition: 0.5s ease all;
-}
 
 /*media query*/
 @media only screen and (max-width: 550px) {
@@ -184,34 +220,28 @@ text-decoration: none;
         
     }
     .search {
-        padding:15px 0;
+        padding-top:15px;
     }
     .form-group {
         width: 90%;
     }
     .list {
-        width: 100%;
         padding: 15px;
         margin-bottom: 0;
     }
-
-
     .map-wrapper > div {
         width: 100%;
     }
-    .nearby-tips {
-      padding-top:150px;
-    }
+    .nearby{
+    width: 90%%;
+    text-align: center;
+    margin: auto;
+}
     footer {
         margin-top:0px;
     }
 }
 
-@media only screen and (max-width: 400px) {
-    .nearby-tips {
-      padding-top:220px;
-    }
-}
 
 /*read more button*/
 #more {display: none;}

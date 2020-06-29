@@ -10,11 +10,13 @@ let addresscomponents_obj = function() {
        if (!address_obj[item["types"][0]]) {
            address_obj[item["types"][0]] = item["short_name"]
        } 
-      }     
+      } 
+    
 }
 
-function updateLink(id,newlink) {
-    document.getElementById(id).href = newlink; 
+function updateLink(classname,newlink) {
+    document.getElementsByClassName(classname)[0].href =newlink;
+    document.getElementsByClassName(classname)[1].href =newlink;
 }
 
 //If the user uses autocomplete
@@ -58,9 +60,10 @@ function showlist() {
     $(list).show( "slow" );
 	initMap();
     addresscomponents_obj();
-    anchor_array.forEach(item=>updateLink(item,eval(`${item}()`))); 
+   $('.address').html(formatted_address.split(',')[0]); anchor_array.forEach(item=>updateLink(item,eval(`${item}()`))); 
     $("html, body").animate({ scrollTop: 0 }, 350); 
-    window.onscroll = function() {stickySearch()};   
+    window.onscroll = function() {stickySearch()};  
+
 }
 
 
@@ -163,13 +166,11 @@ function stickySearch() {
     searchbar.classList.add("leftfloat-search");
     searchbutton.classList.add("leftfloat-button");
   document.getElementById("search_input").style.borderRadius="0rem";
-  document.getElementById("search-button").style.borderRadius="0rem";
   } else {
     searchbox.classList.remove("sticky");
     searchbar.classList.remove("leftfloat-search");
     searchbutton.classList.remove("leftfloat-button");
    document.getElementById("search_input").style.borderRadius=".25rem";
-  document.getElementById("search-button").style.borderRadius=".25rem";
   }
 }
 
