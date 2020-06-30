@@ -161,7 +161,7 @@ let searchbutton = document.getElementById("button-box");
 
 function stickySearch() {
 //    console.log(searchbox.offsetTop);
-  if (window.pageYOffset >= 176) {
+  if (window.pageYOffset >= 186) {
     searchbox.classList.add("sticky");
     searchbar.classList.add("leftfloat-search");
     searchbutton.classList.add("leftfloat-button");

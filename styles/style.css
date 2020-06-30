@@ -33,9 +33,12 @@ input[type=text]:focus{
     margin-bottom: 1rem;   
 }
 .form-control{
-    margin:10px auto 20px auto;
+    margin:auto auto 20px auto;
 }
 
+.form-group h5 {
+    margin-bottom: 15px;
+}
 .btn-primary{
     background-color:#ece5dc;
     border:1px solid #ece5dc;
@@ -232,11 +235,18 @@ footer {
     .map-wrapper > div {
         width: 100%;
     }
+    .container, .col-12 {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
     .nearby{
-    width: 90%%;
+    width: 90%;
     text-align: center;
     margin: auto;
 }
+    .nearby-tips {
+        margin-top:100px;
+    }
     footer {
         margin-top:0px;
     }
