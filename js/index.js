@@ -1,6 +1,6 @@
 let autocomplete, geometry, lat, lng, address_components, formatted_address;
 let address_obj ={};
-const anchor_array = ['superfundanchor','cleanupanchor','earthquakeanchor','crimeanchor','megansanchor','whitepagesanchor','googleanchor']
+const anchor_array = ['superfundanchor','cleanupanchor','earthquakeanchor','crimeanchor','megansanchor','whitepagesanchor','googleanchor','noiseanchor','powerlineanchor','landfillanchor']
 
 
 //preparation functions
@@ -152,6 +152,18 @@ function whitepagesanchor() {
 
 let googleanchor = function() {
     return `https://www.google.com/search?q=${formatted_address}+-mls+-"square+foot"+-redfin+-trulia+-zillow+-prices+-"real estate agent"`;
+}
+
+let noiseanchor = function() {
+    return `https://maps.bts.dot.gov/arcgis/apps/webappviewer/index.html?id=a303ff5924c9474790464cc0e9d5c9fb&extent=${lng-0.01},${lat-0.01},${lng+0.01},${lat+0.01}`; 
+}
+
+let powerlineanchor = function() {
+    return `https://hifld-geoplatform.opendata.arcgis.com/datasets/electric-power-transmission-lines?geometry=${lng-0.001}%2C${lat-0.001}%2C${lng+0.001}%2C${lat+0.001}`; 
+}
+
+let landfillanchor = function() {
+    return `https://hifld-geoplatform.opendata.arcgis.com/datasets/solid-waste-landfill-facilities/data?geometry=${lng-0.001}%2C${lat-0.001}%2C${lng+0.001}%2C${lat+0.001}`; 
 }
 
 //Add scrollbar to the search box
